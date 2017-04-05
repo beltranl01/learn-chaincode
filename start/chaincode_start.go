@@ -14,8 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-/* This is a sample edit to check if the changes wil lbe noticed */
-
 package main
 
 import (
@@ -43,6 +41,11 @@ func main() {
 func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
 	if len(args) != 1 {
 		return nil, errors.New("Incorrect number of arguments. Expecting 1")
+	}
+
+	err := stub.PutState("hello_world", []byte(args[0]))
+	if err != nil {
+			return nil, err
 	}
 
 	return nil, nil
